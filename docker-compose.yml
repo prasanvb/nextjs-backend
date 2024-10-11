@@ -1,0 +1,31 @@
+
+networks:
+  db:
+    driver: bridge
+
+services:
+  db: 
+    image: postgres:17.0
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=testDB
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - db
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
