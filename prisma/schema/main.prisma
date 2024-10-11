@@ -9,70 +9,67 @@ datasource db {
 }
 
 enum Role {
-  USER 
-  ADMIN  
+  USER
+  ADMIN
 }
 
 model User {
-  id      Int       @id @default(autoincrement())
-  email   String?   @unique           // ? optianl field with null values
-  name    String    @map("fullName")  // @map updates column name 
-  role    Role?     @default(USER)    // values must be from enum
- 
-  profile Profile?  
-  posts   Post[]    
-  
-  @@map("Users")    // @@map updates table name 
-   
+  id     Int     @id @default(autoincrement())
+  email  String? @unique // ? optianl field with null values
+  name   String  @map("fullName") // @map updates column name 
+  role   Role?   @default(USER) // values must be from enum
+  gender String?
 
-  @@unique([name, role])  // combination of values must be unique
+  profile Profile?
+  posts   Post[]
+
+  @@unique([name, role]) // combination of values must be unique
   @@index([id, email])
-} 
+  @@map("Users") // @@map updates table name 
+}
 
 model Profile {
-  id          Int         @id @default(autoincrement())
-  bio         String        
-  userId      Int         @unique
+  id     Int    @id @default(autoincrement())
+  bio    String
+  userId Int    @unique
 
-  user        User        @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Post {
-  id            Int         @id @default(autoincrement())
-  authorId      Int?
-  title         String
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  published     Boolean     @default(false)
-  likeNum       Int         @default(0) @map("likes")
-  
-  author        User?       @relation(fields: [authorId], references: [id])
-  catgories     Category[] 
+  id        Int      @id @default(autoincrement())
+  authorId  Int?
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean  @default(false)
+  likeNum   Int      @default(0) @map("likes")
+
+  author    User?      @relation(fields: [authorId], references: [id])
+  catgories Category[]
 }
 
-model Category{
-  id        Int       @id @default(autoincrement())
-  name      String    
-  posts     Post[]    
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[]
 }
-
-
 
 // multiple primary keys example
 model Username {
-  firstname     String
-  lastname      String
+  firstname String
+  lastname  String
   address   UserAddress?
 
   @@id([firstname, lastname])
 }
 
 model UserAddress {
-  id              Int       @id
-  userFirstname   String    
-  userLastname    String    
-  
-  username        Username  @relation(fields: [userFirstname, userLastname], references: [firstname, lastname])
+  id            Int    @id
+  userFirstname String
+  userLastname  String
+
+  username Username @relation(fields: [userFirstname, userLastname], references: [firstname, lastname])
 
   @@unique([userFirstname, userLastname])
 }
