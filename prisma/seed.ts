@@ -25,6 +25,8 @@ const userData: Prisma.UserCreateInput[] = [
         },
         {
           title: 'Follow Prisma on Twitter',
+          likeNum: 2,
+          published: true,
           catgories: {
             connect: [
               {
@@ -32,7 +34,6 @@ const userData: Prisma.UserCreateInput[] = [
               },
             ],
           },
-          published: true,
         },
       ],
     },
@@ -43,7 +44,9 @@ const userData: Prisma.UserCreateInput[] = [
     posts: {
       create: [
         {
-          title: 'Follow Prisma on Twitter',
+          title: 'Follow Prisma on Discord',
+          likeNum: 21,
+          published: false,
           catgories: {
             connect: [
               {
@@ -51,7 +54,6 @@ const userData: Prisma.UserCreateInput[] = [
               },
             ],
           },
-          published: true,
         },
       ],
     },
@@ -63,7 +65,7 @@ const userData: Prisma.UserCreateInput[] = [
       create: [
         {
           title: 'Ask a question about Prisma on GitHub',
-
+          likeNum: 31,
           published: true,
           catgories: {
             connect: [
@@ -75,6 +77,8 @@ const userData: Prisma.UserCreateInput[] = [
         },
         {
           title: 'Prisma on YouTube',
+          likeNum: 12,
+          published: false,
           catgories: {
             connect: [
               {
