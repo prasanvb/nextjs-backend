@@ -26,3 +26,12 @@
 - Group by 
 - Sorting
 - Pagination
+  - Offset based pagination
+    - uses `skip` and `take` to skip a certain number of records and take (i.e. return) a limited range from the point you skipped
+    - pros: You can jump to any page immediately and You can paginate the same result set in any sort order and apply filters.
+    - cons: Does not scale at a database level. Example, if you want to skip 200,000 records and then database still has to traverse the first 200,000 records before returning the value
+  - Cursor based pagination
+    - uses `cursor` and `take` to return a limited set of results before or after a given cursor. A cursor bookmarks your location in a result set and must be a unique, sequential column - such as an ID or a timestamp.
+    - records can be sorted only based on cursor
+    - You can paginate the result set only in cursor sort order and apply filters.
+
