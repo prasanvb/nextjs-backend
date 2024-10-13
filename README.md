@@ -23,7 +23,7 @@
   - NOTE: We cannot use both `include` and `select` at the sametime
 - Aggregate functions
   - `min`, `max`, `avg`, `count`, `some`
-- Group by 
+- Group By
 - Sorting
 - Pagination
   - Offset based pagination
@@ -34,4 +34,28 @@
     - uses `cursor` and `take` to return a limited set of results before or after a given cursor. A cursor bookmarks your location in a result set and must be a unique, sequential column - such as an ID or a timestamp.
     - records can be sorted only based on cursor
     - You can paginate the result set only in cursor sort order and apply filters.
+- `create` to create individual records
+- `createOrconnect` to connect record if it exists or creata new record if it doesn't exists.
 
+## SAMPLE PAYLOAD
+
+- create user with posts
+```
+{
+	"name": "Prasan",
+	"email": "prasan+9@gmail.com",
+	"role": "USER",
+	"posts":[
+		{
+			"title": "Learn about Prisma on Udemy",
+			"published" : false,
+			"likeNum": 77,
+			"catgories" : [
+				{
+					"id": 3
+				}
+			]
+		}
+	]
+}
+```

@@ -10,15 +10,15 @@ datasource db {
 
 model User {
   id      Int      @id @default(autoincrement())
-  email   String?  @unique // ? optianl field with null values
-  name    String   @map("FullName")  // @map updates column name
-  role    Role?    @default(USER)  // values must be from enum
+  email   String?  @unique
+  name    String   @map("FullName")
+  role    Role?    @default(USER)
   posts   Post[]
   profile Profile?
 
-  @@unique([name, role])  // combination of values must be unique
+  @@unique([name, role])
   @@index([id, email])
-  @@map("Users") // @@map updates table name 
+  @@map("Users")
 }
 
 model Profile {
@@ -36,7 +36,7 @@ model Post {
   updatedAt DateTime   @updatedAt
   published Boolean    @default(false)
   likeNum   Int        @default(0) @map("likes")
-  author    User?      @relation(fields: [authorId], references: [id])
+  author    User?      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   catgories Category[] @relation("CategoryToPost")
 }
 
@@ -46,7 +46,6 @@ model Category {
   posts Post[] @relation("CategoryToPost")
 }
 
-// multiple primary keys example
 model Username {
   firstname String
   lastname  String
