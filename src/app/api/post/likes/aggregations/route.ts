@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma';
 
+// aggregations on likeNum  from Post table
 // route: api/post/aggregations
 
 export async function GET(req: Request) {

@@ -23,3 +23,6 @@
   - NOTE: We cannot use both `include` and `select` at the sametime
 - Aggregate functions
   - `min`, `max`, `avg`, `count`, `some`
+- Group by 
+- Sorting
+- Pagination
