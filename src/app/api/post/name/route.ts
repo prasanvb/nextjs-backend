@@ -1,9 +1,11 @@
 import prisma from '@/lib/prisma';
 import { type NextRequest } from 'next/server';
+import { title } from 'process';
 
-// api/post/name?equal=Jack
-// api/post/name?not-equal=Jack
-// name value is case sensitive
+// name key value is case sensitive
+// email - endsWith = '.com'
+// api/post/name?equal=Jack - uses include
+// api/post/name?not-equal=Jack - uses nested select
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -18,6 +20,9 @@ export async function GET(request: NextRequest) {
           author: {
             is: {
               name: nameEqual ? nameEqual : undefined,
+              email: {
+                endsWith: '.com',
+              },
             },
           },
         },
@@ -32,10 +37,21 @@ export async function GET(request: NextRequest) {
               isNot: {
                 name: nameNotEqual ? nameNotEqual : undefined,
               },
+              is: {
+                email: {
+                  endsWith: '.com',
+                },
+              },
             },
           },
-          include: {
-            author: true,
+          select: {
+            title: true,
+            author: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
           },
         })
       : [];

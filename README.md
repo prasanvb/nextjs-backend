@@ -14,8 +14,12 @@
 - Relation filters - Filter data based on relation between tables and it values
   - `every`
   - `some`
-  - `none` 
+  - `none`
   - `is`
   - `isNot`
-
-
+- Data filters
+  - `include` for displying related tables when using relation filters
+  - `select` for regular use cases
+  - NOTE: We cannot use both `include` and `select` at the sametime
+- Aggregate functions
+  - `min`, `max`, `avg`, `count`, `some`

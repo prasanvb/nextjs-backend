@@ -11,6 +11,14 @@ export async function GET(req: Request) {
         },
       },
     },
+    select: {
+      email: true,
+      name: true,
+      // show max 5 posts
+      posts: {
+        take: 5,
+      },
+    },
   });
 
   return new Response(JSON.stringify(users), { status: 200 });

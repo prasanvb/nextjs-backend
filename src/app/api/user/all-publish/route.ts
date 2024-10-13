@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma';
 
 // user with all posts published
+// select query
 // route: api/user/all-published
 export async function GET(req: Request) {
   const users = await prisma.user.findMany({
@@ -9,6 +10,14 @@ export async function GET(req: Request) {
         every: {
           published: true,
         },
+      },
+    },
+    select: {
+      email: true,
+      name: true,
+      // show max 5 posts
+      posts: {
+        take: 5,
       },
     },
   });
