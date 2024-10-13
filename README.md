@@ -11,3 +11,11 @@
 - Migration `migrate dev` used in development environments only, requires shadow database(i.e. separate temporary database).
   - `npx prisma migrate dev --name migration-name` - Reruns the existing migration history in the shadow database in order to detect schema drift (edited or deleted migration file, or a manual changes to the database schema)
 - Run `npx prisma db seed` to add data to DB. Make sure you have `prisma.ts` file with required data and path mentioned in `package.json`
+- Relation filters - Filter data based on relation between tables and it values
+  - `every`
+  - `some`
+  - `none` 
+  - `is`
+  - `isNot`
+
+
