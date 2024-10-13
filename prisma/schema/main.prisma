@@ -13,7 +13,6 @@ model User {
   email   String?  @unique // ? optianl field with null values
   name    String   @map("FullName")  // @map updates column name
   role    Role?    @default(USER)  // values must be from enum
-  gender  String?
   posts   Post[]
   profile Profile?
 
