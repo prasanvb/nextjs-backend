@@ -11,7 +11,7 @@ export async function PATCH(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const value = searchParams.get('contains');
 
-  try{
+  try {
     const body = await req.json();
     const updatedRoles = await prisma.user.updateMany({
       where: {
@@ -23,11 +23,10 @@ export async function PATCH(req: NextRequest) {
         role: body.role,
       },
     });
-  
-    return NextResponse.json(updatedRoles, { status: 200 });   
-  }
-  catch(err){
-    console.error({err})
+
+    return NextResponse.json(updatedRoles, { status: 200 });
+  } catch (err) {
+    console.error({ err });
     return new Response(JSON.stringify(err), { status: 500 });
   }
 }

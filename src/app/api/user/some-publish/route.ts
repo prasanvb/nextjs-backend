@@ -4,7 +4,7 @@ import prisma from '@/lib/prisma';
 // route: api/user/some-publish
 
 export async function GET(_req: Request) {
-  try{
+  try {
     const users = await prisma.user.findMany({
       where: {
         posts: {
@@ -22,11 +22,10 @@ export async function GET(_req: Request) {
         },
       },
     });
-  
-    return new Response(JSON.stringify(users), { status: 200 });   
-  }
-  catch(err){
-    console.error({err})
+
+    return new Response(JSON.stringify(users), { status: 200 });
+  } catch (err) {
+    console.error({ err });
     return new Response(JSON.stringify(err), { status: 500 });
   }
 }

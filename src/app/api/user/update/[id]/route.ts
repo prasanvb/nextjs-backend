@@ -11,7 +11,7 @@ export interface paramType {
 export async function PATCH(req: NextRequest, { params }: paramType) {
   const id = parseInt(params.id);
 
-  try{
+  try {
     const body = await req.json();
     const updatedUser = await prisma.user.update({
       where: {
@@ -19,15 +19,13 @@ export async function PATCH(req: NextRequest, { params }: paramType) {
       },
       data: {
         name: body.name,
-        email: body.email
+        email: body.email,
       },
     });
-  
-    return NextResponse.json(updatedUser, { status: 200 });      
-  }
-  catch(err){
-    console.error({err})
+
+    return NextResponse.json(updatedUser, { status: 200 });
+  } catch (err) {
+    console.error({ err });
     return new Response(JSON.stringify(err), { status: 500 });
   }
-
 }

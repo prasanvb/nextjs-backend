@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format":"prettier --write ./src/",
     "db-seed": "NODE_ENV=development prisma db seed"
   },
   "prisma": {

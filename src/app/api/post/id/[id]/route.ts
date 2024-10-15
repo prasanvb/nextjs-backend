@@ -9,25 +9,34 @@ export interface paramType {
 
 export async function GET(req: Request, { params }: paramType) {
   const idList = params.id.split(',').map((id) => parseInt(id));
-  console.log({ idList });
 
   if (idList.length === 1) {
-    const posts = await prisma.post.findUnique({
+    try {
+      const posts = await prisma.post.findUnique({
+        where: {
+          id: idList[0],
+        },
+      });
+
+      return new Response(JSON.stringify(posts), { status: 200 });
+    } catch (err) {
+      console.error({ err });
+      return new Response(JSON.stringify(err), { status: 500 });
+    }
+  }
+
+  try {
+    const posts = await prisma.post.findMany({
       where: {
-        id: idList[0],
+        id: {
+          in: [...idList],
+        },
       },
     });
 
     return new Response(JSON.stringify(posts), { status: 200 });
+  } catch (err) {
+    console.error({ err });
+    return new Response(JSON.stringify(err), { status: 500 });
   }
-
-  const posts = await prisma.post.findMany({
-    where: {
-      id: {
-        in: [...idList],
-      },
-    },
-  });
-
-  return new Response(JSON.stringify(posts), { status: 200 });
 }
