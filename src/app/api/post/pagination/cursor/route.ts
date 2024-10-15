@@ -7,19 +7,24 @@ import prisma from '@/lib/prisma';
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
 
-  const cursorid = +(searchParams.get('cursorid') ?? 0);
-  const pgsize = +(searchParams.get('pgsize') ?? 4);
-  console.log({ cursorid, pgsize });
+  const cursorId = +(searchParams.get('cursorid') ?? 0);
+  const pageSize = +(searchParams.get('pgsize') ?? 4);
+  console.log({ cursorId, pageSize });
 
-  const posts = await prisma.post.findMany({
-    cursor: {
-      id: cursorid,
-    },
-    take: pgsize,
-    orderBy: {
-      id: 'desc',
-    },
-  });
+  try {
+    const posts = await prisma.post.findMany({
+      cursor: {
+        id: cursorId,
+      },
+      take: pageSize,
+      orderBy: {
+        id: 'desc',
+      },
+    });
 
-  return new Response(JSON.stringify(posts), { status: 200 });
+    return new Response(JSON.stringify(posts), { status: 200 });
+  } catch (err) {
+    console.error({ err });
+    return new Response(JSON.stringify(err), { status: 500 });
+  }
 }

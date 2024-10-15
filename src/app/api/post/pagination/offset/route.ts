@@ -9,23 +9,27 @@ export async function GET(req: Request) {
 
   const pgnum = +(searchParams.get('pgnum') ?? 0);
   const pgsize = +(searchParams.get('pgsize') ?? 3);
-
   console.log({ pgnum, pgsize });
 
-  const posts = await prisma.post.findMany({
-    skip: pgnum * pgsize,
-    take: pgsize,
-    orderBy: {
-      likeNum: 'desc',
-    },
-    where: {
-      author: {
-        email: {
-          contains: 'prisma.io',
+  try {
+    const posts = await prisma.post.findMany({
+      skip: pgnum * pgsize,
+      take: pgsize,
+      orderBy: {
+        likeNum: 'desc',
+      },
+      where: {
+        author: {
+          email: {
+            contains: 'prisma.io',
+          },
         },
       },
-    },
-  });
+    });
 
-  return new Response(JSON.stringify(posts), { status: 200 });
+    return new Response(JSON.stringify(posts), { status: 200 });
+  } catch (err) {
+    console.error({ err });
+    return new Response(JSON.stringify(err), { status: 500 });
+  }
 }
