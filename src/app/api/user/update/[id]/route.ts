@@ -6,7 +6,8 @@ export interface paramType {
 }
 
 // route: api/user/update/7
-// payload: { "name": "pras" }
+// payload: { "name": "prasan", "email": "prasan@gmail.com" }
+
 export async function PATCH(req: NextRequest, { params }: paramType) {
   const id = parseInt(params.id);
 
@@ -18,6 +19,7 @@ export async function PATCH(req: NextRequest, { params }: paramType) {
       },
       data: {
         name: body.name,
+        email: body.email
       },
     });
   

@@ -42,3 +42,4 @@
 - `update` to update an individual records when a condition is meet
 - `updateMany` to update multiple records when a condition is meet
 - `upsert` - if entity exists then update the entity in the database if not then create the entity  
+- `transactions` - all or nothing when performing CURD operations
