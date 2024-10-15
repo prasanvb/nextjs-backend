@@ -5,7 +5,7 @@ export interface paramType {
   params: { id: string };
 }
 
-// route: api/user/update/name?contains=pr
+// route: api/user/update/roles/name?contains=p
 // payload: { "role": "ADMIN" }
 export async function PATCH(req: NextRequest) {
   const { searchParams } = new URL(req.url);

@@ -34,28 +34,34 @@
     - uses `cursor` and `take` to return a limited set of results before or after a given cursor. A cursor bookmarks your location in a result set and must be a unique, sequential column - such as an ID or a timestamp.
     - records can be sorted only based on cursor
     - You can paginate the result set only in cursor sort order and apply filters.
-- `create` to create individual records
-- `createOrconnect` to connect record if it exists or creata new record if it doesn't exists.
+- `create` to create new individual records
+- `createOrconnect` (only for the `@relation` records during create action) if the record exists then established the connection or if it doesn't exists then create the record and then established the connection.
+- `onDelete: Cascade` option with in the schema model to define the behavior of delete action of the record and its related items
+- `createMany` to create multiple records with optional flag to `skipDuplicates: true`
+- `update` to update an individual records when a condition is meet
+- `updateMany` to update multiple records when a condition is meet
+- `upsert` - if entity exists then update the entity in the database if not then create the entity  
 
 ## SAMPLE PAYLOAD
 
 - create user with posts
-```
+
+```json
 {
-	"name": "Prasan",
-	"email": "prasan+9@gmail.com",
-	"role": "USER",
-	"posts":[
-		{
-			"title": "Learn about Prisma on Udemy",
-			"published" : false,
-			"likeNum": 77,
-			"catgories" : [
-				{
-					"id": 3
-				}
-			]
-		}
-	]
+ "name": "Prasan",
+ "email": "prasan+9@gmail.com",
+ "role": "USER",
+ "posts":[
+  {
+   "title": "Learn about Prisma on Udemy",
+   "published" : false,
+   "likeNum": 77,
+   "catgories" : [
+    {
+     "id": 3
+    }
+   ]
+  }
+ ]
 }
 ```

@@ -1,5 +1,8 @@
 import prisma from '@/lib/prisma';
 
+// route: api/user/create
+// payload: {"name":"Venkat","email":"venkat@gmail.com","role":"ADMIN"}
+
 export async function POST(req: Request) {
   const body = await req.json();
   console.log(body);

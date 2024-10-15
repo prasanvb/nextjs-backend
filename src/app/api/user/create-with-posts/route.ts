@@ -1,5 +1,8 @@
 import prisma from '@/lib/prisma';
 
+// route: api/user/create-with-posts
+// payload: {"name":"Prasan","email":"prasan+9@gmail.com","role":"USER","posts":[{"title":"Learn about Prisma on Udemy","published":false,"likeNum":77,"catgories":[{"id":3}]}]}
+
 export async function POST(req: Request) {
   const body = await req.json();
   console.log(body);
