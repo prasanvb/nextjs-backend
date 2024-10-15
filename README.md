@@ -8,6 +8,7 @@
 
 - Entity Relationship diagram under public images
 - `npx prisma studio` to view the data
+- `insomnia` folder for APIs
 
 ## PRISMA
 
