@@ -5,15 +5,20 @@ export interface paramType {
   params: { id: string };
 }
 
-// reoute: api/user/delete/7
+// route: api/user/delete/7
+
 export async function DELETE(request: NextRequest, { params }: paramType) {
-  const id = parseInt(params.id);
-
-  const deleteUser = await prisma.user.delete({
-    where: {
-      id: id,
-    },
-  });
-
-  return NextResponse.json(deleteUser, { status: 200 });
+  try{
+    const deleteUser = await prisma.user.delete({
+      where: {
+        id: parseInt(params.id),
+      },
+    });
+  
+    return NextResponse.json(deleteUser, { status: 200 });   
+  }
+  catch(err){
+    console.error({err})
+    return new Response(JSON.stringify(err), { status: 500 });
+  }
 }

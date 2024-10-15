@@ -7,13 +7,19 @@ export async function POST(req: Request) {
   const body = await req.json();
   console.log(body);
 
-  const newUser = await prisma.user.create({
-    data: {
-      name: body.name,
-      email: body.email,
-      role: body.role,
-    },
-  });
-
-  return new Response(JSON.stringify(newUser), { status: 200 });
+  try{
+    const newUser = await prisma.user.create({
+      data: {
+        name: body.name,
+        email: body.email,
+        role: body.role,
+      },
+    });
+  
+    return new Response(JSON.stringify(newUser), { status: 200 });   
+  }
+  catch(err){
+    console.error({err})
+    return new Response(JSON.stringify(err), { status: 500 });
+  }
 }

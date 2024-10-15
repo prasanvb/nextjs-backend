@@ -10,20 +10,24 @@ export interface paramType {
 export async function PATCH(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const value = searchParams.get('contains');
-  const body = await req.json();
 
-  console.log(value?.toString());
-
-  const updatedRoles = await prisma.user.updateMany({
-    where: {
-      name: {
-        contains: value ? value : undefined,
+  try{
+    const body = await req.json();
+    const updatedRoles = await prisma.user.updateMany({
+      where: {
+        name: {
+          contains: value ? value : undefined,
+        },
       },
-    },
-    data: {
-      role: body.role,
-    },
-  });
-
-  return NextResponse.json(updatedRoles, { status: 200 });
+      data: {
+        role: body.role,
+      },
+    });
+  
+    return NextResponse.json(updatedRoles, { status: 200 });   
+  }
+  catch(err){
+    console.error({err})
+    return new Response(JSON.stringify(err), { status: 500 });
+  }
 }

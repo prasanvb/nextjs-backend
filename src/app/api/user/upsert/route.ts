@@ -5,10 +5,10 @@ import prisma from '@/lib/prisma';
 // where condition has to be an index
 
 export async function PUT(req: Request) {
-  const body = await req.json();
-  console.log(body);
 
-    const newUser = await prisma.user.upsert({
+    try{
+      const body = await req.json();
+      const newUser = await prisma.user.upsert({
         where:{
             // where condition has to be an index
             email: body.email,
@@ -25,6 +25,11 @@ export async function PUT(req: Request) {
           }
       });
     
-      return new Response(JSON.stringify(newUser), { status: 200 });
+    return new Response(JSON.stringify(newUser), { status: 200 });
+    }
+    catch(err){
+      console.error({err})
+      return new Response(JSON.stringify(err), { status: 500 });
+    }
  }
   

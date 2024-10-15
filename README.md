@@ -7,6 +7,7 @@
 ## NOTE
 
 - Entity Relationship diagram under public images
+- `npx prisma studio` to view the data
 
 ## PRISMA
 
@@ -37,31 +38,7 @@
 - `create` to create new individual records
 - `createOrconnect` (only for the `@relation` records during create action) if the record exists then established the connection or if it doesn't exists then create the record and then established the connection.
 - `onDelete: Cascade` option with in the schema model to define the behavior of delete action of the record and its related items
-- `createMany` to create multiple records with optional flag to `skipDuplicates: true`
+- `createMany` to create multiple records with optional flag to `skipDuplicates: true`. NOTE: `skipDuplicates` does not throw error
 - `update` to update an individual records when a condition is meet
 - `updateMany` to update multiple records when a condition is meet
 - `upsert` - if entity exists then update the entity in the database if not then create the entity  
-
-## SAMPLE PAYLOAD
-
-- create user with posts
-
-```json
-{
- "name": "Prasan",
- "email": "prasan+9@gmail.com",
- "role": "USER",
- "posts":[
-  {
-   "title": "Learn about Prisma on Udemy",
-   "published" : false,
-   "likeNum": 77,
-   "catgories" : [
-    {
-     "id": 3
-    }
-   ]
-  }
- ]
-}
-```

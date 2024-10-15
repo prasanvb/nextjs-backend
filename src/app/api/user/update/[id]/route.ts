@@ -9,17 +9,23 @@ export interface paramType {
 // payload: { "name": "pras" }
 export async function PATCH(req: NextRequest, { params }: paramType) {
   const id = parseInt(params.id);
-  const body = await req.json();
-  console.log(body);
 
-  const updatedUser = await prisma.user.update({
-    where: {
-      id: id,
-    },
-    data: {
-      name: body.name,
-    },
-  });
+  try{
+    const body = await req.json();
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: body.name,
+      },
+    });
+  
+    return NextResponse.json(updatedUser, { status: 200 });      
+  }
+  catch(err){
+    console.error({err})
+    return new Response(JSON.stringify(err), { status: 500 });
+  }
 
-  return NextResponse.json(updatedUser, { status: 200 });
 }
