@@ -7,6 +7,7 @@
 ## NOTES
 
 - You can use local postgres DB from docker-compose
+  - `DATABASE_URL="postgresql://postgres:postgres@localhost:5432/testDB?schema=public"`
 - Entity Relationship diagram under public image
 - Next JS Framework image
 - `npx prisma studio` to view the data
