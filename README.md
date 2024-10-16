@@ -4,14 +4,26 @@
 
 - `DATABASE_URL="postgresql://username:password@localhost:5432/databasename?schema=public"`
 
-## NOTE
+## NOTES
 
-- Entity Relationship diagram under public images
+- You can use local postgres DB from docker-compose
+- Entity Relationship diagram under public image
+- Next JS Framework image
 - `npx prisma studio` to view the data
 - `insomnia` folder for APIs
+- Most Prisma operations on next js can be performed by server components(GET) ans server actions(POST, UPDATE, DELETE) in next js
+- We can use next JS cache to store frequent read operations or use Prisma accelerate to for global caching, connection pooling, etc.
 
 ## PRISMA
 
+- Model - Schema
+  - `id      Int     @id @default(autoincrement())` - provides incremental id's (e.g, 1,2,3) 
+    - NOTE: has a security flaw where users can change the id and get info of other users
+  - `id      Int     @id @default(cuid())` - collision resistent unique id's
+  - `id      Int     @id @default(uuid())` - universally Unique Identifier
+  - `@@index([id, email])` index are improve read performance of the table while performing search operations
+- `@prisma/client` can be directly used in next.js server components
+- `npx prisma init` - initialize prisma
 - Introspection: Run `npx prisma db pull` connects to your database and adds Prisma models to your Prisma schema that reflect the current database schema. NOTE: command will overwrite the current schema.prisma file with the new schema.
 - Run `npx prisma db push` pushes the state of your Prisma schema to the database without using migrations. It creates the database if the database does not exist.
 - Migration `migrate dev` used in development environments only, requires shadow database(i.e. separate temporary database).
@@ -44,3 +56,4 @@
 - `updateMany` to update multiple records when a condition is meet
 - `upsert` - if entity exists then update the entity in the database if not then create the entity  
 - `transactions` - all or nothing when performing CURD operations
+

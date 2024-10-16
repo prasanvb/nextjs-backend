@@ -13,19 +13,22 @@ model User {
   email   String?  @unique
   role    Role?    @default(USER)
   name    String   @map("FullName")
-  posts   Post[]
+  // one to many relationship
+  posts   Post[]  
+  // one to one relationship
   profile Profile?
 
   @@unique([name, role])
-  @@index([id, email])
+  @@index([id, email]) // user to improve read performace of the table
   @@map("Users")
 }
 
 model Profile {
   id     Int     @id @default(autoincrement())
   bio    String?
+  // one to one relationship
   userId Int     @unique
-  user   User    @relation(fields: [userId], references: [id])
+  user   User    @relation(fields: [userId], references: [id]) 
 }
 
 model Post {
@@ -36,14 +39,17 @@ model Post {
   updatedAt DateTime   @updatedAt
   published Boolean    @default(false)
   likeNum   Int        @default(0) @map("likes")
+  // one to many relationship
   author    User?      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  catgories Category[] @relation("CategoryToPost")
+  // implicit many to many relationship
+  catgories Category[] @relation("CategoryToPost") 
 }
 
 model Category {
   id    Int    @id @default(autoincrement())
   name  String
-  posts Post[] @relation("CategoryToPost")
+  // implicit many-many relationship
+  posts Post[] @relation("CategoryToPost") 
 }
 
 model Username {
